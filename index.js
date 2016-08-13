@@ -1,7 +1,6 @@
 var path = require("path")
 var assign = require("object-assign")
 var postcss = require("postcss")
-var joinMedia = require("./lib/join-media")
 var resolveId = require("./lib/resolve-id")
 var loadContent = require("./lib/load-content")
 var parseStatements = require("./lib/parse-statements")
@@ -54,7 +53,6 @@ function AtImport(options) {
     ).then(function(bundle) {
 
       applyRaws(bundle)
-      applyMedia(bundle)
       applyStyles(bundle, styles)
 
       if (
@@ -93,46 +91,6 @@ function applyRaws(bundle) {
   })
 }
 
-function applyMedia(bundle) {
-  bundle.forEach(function(stmt) {
-    if (!stmt.media.length) {
-      return
-    }
-    if (stmt.type === "import") {
-      stmt.node.params = stmt.fullUri + " " + stmt.media.join(", ")
-    }
-    else if (stmt.type ==="media") {
-      stmt.node.params = stmt.media.join(", ")
-    }
-    else {
-      var nodes = stmt.nodes
-      var parent = nodes[0].parent
-      var mediaNode = postcss.atRule({
-        name: "media",
-        params: stmt.media.join(", "),
-        source: parent.source,
-      })
-
-      parent.insertBefore(nodes[0], mediaNode)
-
-      // remove nodes
-      nodes.forEach(function(node) {
-        node.parent = undefined
-      })
-
-      // better output
-      nodes[0].raws.before = nodes[0].raws.before || "\n"
-
-      // wrap new rules with media query
-      mediaNode.append(nodes)
-
-      stmt.type = "media"
-      stmt.node = mediaNode
-      delete stmt.nodes
-    }
-  })
-}
-
 function applyStyles(bundle, styles) {
   styles.nodes = []
 
@@ -164,8 +122,6 @@ function parseStyles(
   var statements = parseStatements(result, styles)
 
   return Promise.all(statements.map(function(stmt) {
-    stmt.media = joinMedia(media, stmt.media)
-
     // skip protocol base uri (protocol://url) or protocol-relative
     if (stmt.type !== "import" || /^(?:[a-z]+:)?\/\//i.test(stmt.uri)) {
       return
@@ -258,21 +214,16 @@ function loadImportContent(
   state
 ) {
   var atRule = stmt.node
-  var media = stmt.media
   if (options.skipDuplicates) {
     // skip files already imported at the same scope
     if (
-      state.importedFiles[filename] &&
-      state.importedFiles[filename][media]
+      state.importedFiles[filename]
     ) {
       return
     }
 
     // save imported files to skip them next time
-    if (!state.importedFiles[filename]) {
-      state.importedFiles[filename] = {}
-    }
-    state.importedFiles[filename][media] = true
+    state.importedFiles[filename] = true
   }
 
   return Promise.resolve(options.load(filename, options))
@@ -293,8 +244,7 @@ function loadImportContent(
 
     // skip previous imported files not containing @import rules
     if (
-      state.hashFiles[content] &&
-      state.hashFiles[content][media]
+      state.hashFiles[content]
     ) {
       return
     }
@@ -313,11 +263,7 @@ function loadImportContent(
           return child.type === "atrule" && child.name === "import"
         })
         if (!hasImport) {
-          // save hash files to skip them next time
-          if (!state.hashFiles[content]) {
-            state.hashFiles[content] = {}
-          }
-          state.hashFiles[content][media] = true
+          state.hashFiles[content] = true
         }
       }
 
@@ -326,8 +272,7 @@ function loadImportContent(
         result,
         styles,
         options,
-        state,
-        media
+        state
       )
     })
   })

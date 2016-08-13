@@ -4,7 +4,6 @@
 @import "by-hand/style.css";
 @import "use-dep";
 @import "use-dep-too";
-@import "use-dep" screen;
 
 @import "web-fake";
 @import "web-auto";
@@ -12,4 +11,3 @@
 @import "web-by-hand/style.css";
 @import "web-use-dep";
 @import "web-use-dep-too";
-@import "web-use-dep" screen;
