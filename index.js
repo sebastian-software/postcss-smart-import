@@ -279,6 +279,6 @@ function loadImportContent(
 }
 
 module.exports = postcss.plugin(
-  "postcss-import",
+  "postcss-smart-import",
   AtImport
 )

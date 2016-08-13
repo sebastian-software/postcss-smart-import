@@ -1,8 +1,8 @@
-# postcss-import
+# postcss-smart-import
 
-[![Unix Build status](https://img.shields.io/travis/postcss/postcss-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/postcss/postcss-import)
-[![Windows Build status](https://img.shields.io/appveyor/ci/MoOx/postcss-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/MoOx/postcss-import/branch/master)
-[![Version](https://img.shields.io/npm/v/postcss-import.svg)](https://github.com/postcss/postcss-import/blob/master/CHANGELOG.md)
+[![Unix Build status](https://img.shields.io/travis/postcss/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/postcss/postcss-smart-import)
+[![Windows Build status](https://img.shields.io/appveyor/ci/MoOx/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/MoOx/postcss-smart-import/branch/master)
+[![Version](https://img.shields.io/npm/v/postcss-smart-import.svg)](https://github.com/postcss/postcss-smart-import/blob/master/CHANGELOG.md)
 
 > [PostCSS](https://github.com/postcss/postcss) plugin to transform `@import`
 rules by inlining content.
@@ -37,7 +37,7 @@ please look at
 ## Installation
 
 ```console
-$ npm install postcss-import
+$ npm install postcss-smart-import
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ work from input dirname.
 // dependencies
 var fs = require("fs")
 var postcss = require("postcss")
-var atImport = require("postcss-import")
+var atImport = require("postcss-smart-import")
 
 // css to be processed
 var css = fs.readFileSync("css/input.css", "utf8")
@@ -197,7 +197,7 @@ You can use it for hot-reloading in webpack `postcss-loader` like this:
 ```js
 postcss: function(webpack) {
   return [
-    require('postcss-import')({
+    require('postcss-smart-import')({
       addDependencyTo: webpack
       /* Is equivalent to
       onImport: function (files) {
@@ -213,7 +213,7 @@ postcss: function(webpack) {
 
 ```js
 var postcss = require("postcss")
-var atImport = require("postcss-import")
+var atImport = require("postcss-smart-import")
 
 postcss()
   .use(atImport({
