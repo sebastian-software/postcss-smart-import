@@ -1,7 +1,7 @@
-# postcss-smart-import
+# PostCSS Smart Import
 
-[![Unix Build status](https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/postcss/postcss-smart-import)
-[![Windows Build status](https://img.shields.io/appveyor/ci/sebastian-software/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/MoOx/postcss-smart-import/branch/master)
+[![Unix Build status](https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/sebastian-software/postcss-smart-import)
+[![Windows Build status](https://img.shields.io/appveyor/ci/sebastian-software/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/sebastian-software/postcss-smart-import/branch/master)
 [![Version](https://img.shields.io/npm/v/postcss-smart-import.svg)](https://github.com/sebastian-software/postcss-smart-import/releases)
 
 > [PostCSS](https://github.com/postcss/postcss) plugin to transform `@import` rules by inlining content.
