@@ -1,43 +1,36 @@
 {
-  "name": "postcss-import",
-  "version": "8.1.2",
-  "description": "PostCSS plugin to import CSS files",
+  "name": "postcss-smart-import",
+  "version": "0.1.0",
+  "description": "PostCSS plugin to import CSS/SugarSS files",
   "keywords": [
     "css",
     "postcss",
     "postcss-plugin",
     "import",
-    "node modules",
     "npm"
   ],
-  "author": "Maxime Thirouin",
+  "author": "Sebastian Werner",
   "license": "MIT",
-  "repository": "https://github.com/postcss/postcss-import.git",
+  "repository": "https://github.com/sebastian-software/postcss-import",
   "files": [
     "index.js",
     "lib"
   ],
   "dependencies": {
     "object-assign": "^4.1.0",
-    "pkg-resolve": "^0.2.2",
-    "postcss": "^5.1.1",
+    "postcss": "^5.1.2",
     "postcss-value-parser": "^3.3.0",
     "read-cache": "^1.0.0",
     "resolve": "^1.1.7"
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "eslint": "^3.2.2",
+    "eslint": "^3.3.0",
     "eslint-config-i-am-meticulous": "^4.2.1",
-    "npmpub": "^3.1.0",
     "postcss-scss": "^0.1.9"
   },
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "ava",
-    "release": "npmpub"
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-i-am-meticulous/es5"
+    "test": "ava"
   }
 }
