@@ -32,14 +32,6 @@
     "npmpub": "^3.1.0",
     "postcss-scss": "^0.1.9"
   },
-  "jspm": {
-    "name": "postcss-import",
-    "main": "index.js",
-    "browser": {
-      "./lib/load-content": "@empty",
-      "./lib/resolve-id": "@empty"
-    }
-  },
   "scripts": {
     "lint": "eslint --fix .",
     "test": "ava",
