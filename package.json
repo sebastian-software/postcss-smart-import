@@ -42,7 +42,6 @@
   },
   "scripts": {
     "lint": "eslint --fix .",
-    "pretest": "npm run lint",
     "test": "ava",
     "release": "npmpub"
   },
