@@ -1,18 +1,17 @@
 # postcss-smart-import
 
-[![Unix Build status](https://img.shields.io/travis/postcss/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/postcss/postcss-smart-import)
-[![Windows Build status](https://img.shields.io/appveyor/ci/MoOx/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/MoOx/postcss-smart-import/branch/master)
-[![Version](https://img.shields.io/npm/v/postcss-smart-import.svg)](https://github.com/postcss/postcss-smart-import/blob/master/CHANGELOG.md)
+[![Unix Build status](https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/postcss/postcss-smart-import)
+[![Windows Build status](https://img.shields.io/appveyor/ci/sebastian-software/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/MoOx/postcss-smart-import/branch/master)
+[![Version](https://img.shields.io/npm/v/postcss-smart-import.svg)](https://github.com/sebastian-software/postcss-smart-import/releases)
 
-> [PostCSS](https://github.com/postcss/postcss) plugin to transform `@import`
-rules by inlining content.
+> [PostCSS](https://github.com/postcss/postcss) plugin to transform `@import` rules by inlining content.
 
-This plugin can consume local files, node modules or web_modules.
+This plugin can consume local files, `node_modules` or `web_modules`.
 To resolve path of an `@import` rule, it can look into root directory
 (by default `process.cwd()`), `web_modules`, `node_modules`
 or local modules.
-_When importing a module, it will looks for `index.css` or file referenced in
-`package.json` in the `style` or `main` fields._
+_When importing a module, it will looks for `index.[css,sss,scss,sass,less]` or file referenced in
+`package.json` in the `style`, `browser`, `main` fields._
 You can also provide manually multiples paths where to look at.
 
 **Notes:**
@@ -24,15 +23,11 @@ to process, and will probably work as you can expect**.
 [postcss-url](https://github.com/postcss/postcss-url) plugin,
 which will allow you to adjust assets `url()` (or even inline them) after
 inlining imported files.
-- In order to optimize output, **this plugin will only import a file once** on
-a given scope (root, media query...).
+- In order to optimize output, **this plugin will only import a file once**.
 Tests are made from the path & the content of imported files (using a hash
 table).
 If this behavior is not what you want, look at `skipDuplicates` option
-- **If you are looking for glob, or sass like imports (prefixed partials)**,
-please look at
-[postcss-easy-import](https://github.com/trysound/postcss-easy-import)
-(which use this plugin under the hood).
+
 
 ## Installation
 
@@ -228,12 +223,10 @@ postcss()
 
 ---
 
-## CONTRIBUTING
+## Contributing
 
 * ⇄ Pull requests and ★ Stars are always welcome.
 * For bugs and feature requests, please create an issue.
 * Pull requests must be accompanied by passing automated tests (`$ npm test`).
 
-## [Changelog](CHANGELOG.md)
-
-## [License](LICENSE)
+## [License](license)
