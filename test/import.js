@@ -2,7 +2,7 @@ import test from "ava"
 import path from "path"
 import { readFileSync } from "fs"
 import postcss from "postcss"
-import atImport from ".."
+import atImport from "../src"
 import compareFixtures from "./helpers/compare-fixtures"
 
 test("should import stylsheets", t => {

@@ -1,9 +1,9 @@
 var path = require("path")
 var assign = require("object-assign")
 var postcss = require("postcss")
-var resolveId = require("./lib/resolve-id")
-var loadContent = require("./lib/load-content")
-var parseStatements = require("./lib/parse-statements")
+var resolveId = require("./resolve-id")
+var loadContent = require("./load-content")
+var parseStatements = require("./parse-statements")
 
 function AtImport(options) {
   options = assign({

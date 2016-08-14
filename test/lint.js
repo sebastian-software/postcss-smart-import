@@ -1,6 +1,6 @@
 import test from "ava"
 import postcss from "postcss"
-import atImport from ".."
+import atImport from "../src"
 
 const processor = postcss().use(atImport())
 

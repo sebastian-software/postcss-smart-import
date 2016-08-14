@@ -1,6 +1,6 @@
 import test from "ava"
 import postcss from "postcss"
-import atImport from ".."
+import atImport from "../src"
 import { resolve } from "path"
 import { readFileSync } from "fs"
 

@@ -1,4 +1,5 @@
 var resolve = require("resolve")
+
 var moduleDirectories = [
   "web_modules",
   "node_modules",
