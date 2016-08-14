@@ -1,10 +1,18 @@
-# PostCSS Smart Import
+<img src="assets/postcss.png" alt="PostCSS Logo" width="200" height="200"/>
 
-[![Unix Build status](https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build)](https://travis-ci.org/sebastian-software/postcss-smart-import)
-[![Windows Build status](https://img.shields.io/appveyor/ci/sebastian-software/postcss-smart-import/master.svg?label=window%20build)](https://ci.appveyor.com/project/sebastian-software/postcss-smart-import/branch/master)
-[![Version](https://img.shields.io/npm/v/postcss-smart-import.svg)](https://github.com/sebastian-software/postcss-smart-import/releases)
+# PostCSS Smart Import <br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][travis-img]][travis] ![Dependencies][deps-img]
 
-> [PostCSS](https://github.com/postcss/postcss) plugin to transform `@import` rules by inlining content.
+[PostCSS] plugin for loading/including other files (transform `@import` rules by inlining content) and quering/referring assets (referred in `url()` functions).
+
+[PostCSS]: https://github.com/postcss/postcss
+[deps-img]: https://david-dm.org/sebastian-software/postcss-smart-import.svg
+[npm]: https://www.npmjs.com/package/postcss-smart-import
+[npm-downloads-img]: https://img.shields.io/npm/dm/postcss-smart-import.svg
+[npm-version-img]: https://img.shields.io/npm/v/postcss-smart-import.svg
+[travis-img]: https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build
+[appveyor-img]: https://img.shields.io/appveyor/ci/sebastian-software/postcss-smart-import/master.svg?label=window%20build
+[travis]: https://travis-ci.org/sebastian-software/postcss-smart-import
+[appveyor]: https://ci.appveyor.com/project/sebastian-software/postcss-smart-import/branch/master
 
 This plugin can consume local files, `node_modules` or `web_modules`.
 To resolve path of an `@import` rule, it can look into root directory
@@ -13,6 +21,14 @@ or local modules.
 _When importing a module, it will looks for `index.[css,sss,scss,sass,less]` or file referenced in
 `package.json` in the `style`, `browser`, `main` fields._
 You can also provide manually multiples paths where to look at.
+
+
+
+## Links
+
+- [GitHub](https://github.com/sebastian-software/postcss-smart-import)
+- [NPM](https://www.npmjs.com/package/postcss-smart-import)
+
 
 **Notes:**
 
