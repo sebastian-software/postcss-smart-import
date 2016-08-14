@@ -5,11 +5,13 @@ import { resolve } from "path"
 import { readFileSync } from "fs"
 
 test("should have a callback that returns an object" +
-  " containing imported files", (t) => {
+  " containing imported files", (t) =>
+  {
   return postcss()
     .use(atImport({
       path: "fixtures/imports",
-      onImport: (files) => {
+      onImport: (files) =>
+      {
         t.deepEqual(
           files,
           [
@@ -25,10 +27,12 @@ test("should have a callback that returns an object" +
     })
 })
 
-test("should have a callback shortcut for webpack", (t) => {
+test("should have a callback shortcut for webpack", (t) =>
+{
   var files = []
   var webpackMock = {
-    addDependency: (file) => {
+    addDependency: (file) =>
+    {
       files.push(file)
     },
   }
@@ -41,7 +45,8 @@ test("should have a callback shortcut for webpack", (t) => {
     .process(readFileSync("fixtures/media-import.css"), {
       from: "fixtures/media-import.css",
     })
-    .then(() => {
+    .then(() =>
+    {
       t.deepEqual(
         files,
         [
