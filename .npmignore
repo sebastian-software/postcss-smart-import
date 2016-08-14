@@ -1,0 +1,7 @@
+assets
+config
+scripts
+node_modules
+test
+appveyor.yml
+

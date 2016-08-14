@@ -1,3 +1,5 @@
-node_modules
+es/
+lib/
+node_modules/
 test/fixtures/*.actual.css
 npm-debug.log
