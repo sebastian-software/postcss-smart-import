@@ -2,70 +2,80 @@ import valueParser from "postcss-value-parser"
 
 var stringify = valueParser.stringify
 
-function split(params, start) {
+function split(params, start)
+{
   var list = []
-  var last = params.reduce(function(item, node, index) {
+  var last = params.reduce(function(item, node, index)
+  {
     if (index < start) {
       return ""
     }
+
     if (node.type === "div" && node.value === ",") {
       list.push(item)
       return ""
     }
+
     return item + stringify(node)
   }, "")
+
   list.push(last)
   return list
 }
 
-module.exports = function(result, styles) {
+export default function(result, styles)
+{
   var statements = []
   var nodes = []
 
-  styles.each(function(node) {
+  styles.each(function(node)
+  {
     var stmt
-    if (node.type === "atrule") {
-      if (node.name === "import") {
-        stmt = parseImport(result, node)
-      }
-    }
+    if (node.type === "atrule" && node.name === "import")
+      stmt = parseImport(result, node)
 
-    if (stmt) {
-      if (nodes.length) {
+    if (stmt)
+    {
+      if (nodes.length)
+      {
         statements.push({
           type: "nodes",
           nodes: nodes
         })
         nodes = []
       }
+
       statements.push(stmt)
     }
-    else {
+    else
+    {
       nodes.push(node)
     }
   })
 
-  if (nodes.length) {
-    statements.push({
-      type: "nodes",
-      nodes: nodes
-    })
+  if (nodes.length)
+  {
+    statements.push(
+      {
+        type: "nodes",
+        nodes: nodes
+      })
   }
 
   return statements
 }
 
-function parseImport(result, atRule) {
+function parseImport(result, atRule)
+{
   var prev = atRule.prev()
   while (prev && prev.type === "comment") {
     prev = prev.prev()
   }
-  if (prev) {
-    if (
-      prev.type !== "atrule" ||
-      prev.name !== "import" &&
-      prev.name !== "charset"
-    ) {
+
+  if (prev)
+  {
+    if (prev.type !== "atrule" || prev.name !== "import" && prev.name !== "charset")
+    {
       return result.warn(
         "@import must precede all other statements (besides @charset)",
         { node: atRule }
@@ -73,7 +83,8 @@ function parseImport(result, atRule) {
     }
   }
 
-  if (atRule.nodes) {
+  if (atRule.nodes)
+  {
     return result.warn(
       "It looks like you didn't end your @import statement correctly. " +
       "Child nodes are attached to it.",
@@ -106,12 +117,11 @@ function parseImport(result, atRule) {
     )
   }
 
-  if (params[0].type === "string") {
+  if (params[0].type === "string")
     stmt.uri = params[0].value
-  }
-  else {
+  else
     stmt.uri = params[0].nodes[0].value
-  }
+
   stmt.fullUri = stringify(params[0])
 
   return stmt

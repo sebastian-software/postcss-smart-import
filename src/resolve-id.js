@@ -1,30 +1,38 @@
 import resolve from "resolve"
 
-var moduleDirectories = [
+var moduleDirectories =
+[
   "web_modules",
-  "node_modules",
+  "node_modules"
 ]
 
-function resolveModule(id, opts) {
-  return new Promise(function(res, rej) {
-    resolve(id, opts, function(err, path) {
+function resolveModule(id, opts)
+{
+  return new Promise(function(res, rej)
+  {
+    resolve(id, opts, function(err, path)
+    {
       if (err) {
         return rej(err)
       }
+
       res(path)
     })
   })
 }
 
-module.exports = function(id, base, options) {
+export default function(id, base, options)
+{
   var paths = options.path
 
-  var resolveOpts = {
+  var resolveOpts =
+  {
     basedir: base,
     moduleDirectory: moduleDirectories,
     paths: paths,
     extensions: [ ".css", ".sss", ".less", ".scss", ".sass" ],
-    packageFilter: function processPackage(pkg) {
+    packageFilter: function processPackage(pkg)
+    {
       if (pkg.style) {
         pkg.main = pkg.style
       }
@@ -35,23 +43,23 @@ module.exports = function(id, base, options) {
         pkg.main = "index.css"
       }
       return pkg
-    },
+    }
   }
 
   return resolveModule("./" + id, resolveOpts)
-  .catch(function() {
-    return resolveModule(id, resolveOpts)
-  })
-  .catch(function() {
-    if (paths.indexOf(base) === -1) {
-      paths.unshift(base)
-    }
+    .catch(function() {
+      return resolveModule(id, resolveOpts)
+    })
+    .catch(function() {
+      if (paths.indexOf(base) === -1) {
+        paths.unshift(base)
+      }
 
-    throw new Error([
-      "Failed to find '" + id + "'",
-      "in [ ",
-      "    " + paths.join(",\n        "),
-      "]",
-    ].join("\n    "))
-  })
+      throw new Error([
+        "Failed to find '" + id + "'",
+        "in [ ",
+        "    " + paths.join(",\n        "),
+        "]",
+      ].join("\n    "))
+    })
 }
