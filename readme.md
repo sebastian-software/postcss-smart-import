@@ -10,11 +10,11 @@
 [npm-downloads-img]: https://img.shields.io/npm/dm/postcss-smart-import.svg
 [npm-version-img]: https://img.shields.io/npm/v/postcss-smart-import.svg
 [travis-img]: https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build
-[appveyor-img]: https://img.shields.io/appveyor/ci/swernerx/postcss-smart-import/master.svg?label=window%20build
+[appveyor-img]: https://img.shields.io/appveyor/ci/swernerx/postcss-smart-import/master.svg?label=windows%20build
 [travis]: https://travis-ci.org/sebastian-software/postcss-smart-import
 [appveyor]: https://ci.appveyor.com/project/swernerx/postcss-smart-import/branch/master
 
-Think of postcss-import + postcss-url + postcss-url.
+Think of `postcss-import` + `postcss-url` + `postcss-assets`.
 
 This plugin can consume local files, `node_modules` or `web_modules`.
 To resolve path of an `@import` rule, it can look into root directory (by default `process.cwd()`), `web_modules`, `node_modules`
