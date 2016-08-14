@@ -1,4 +1,5 @@
-var valueParser = require("postcss-value-parser")
+import valueParser from "postcss-value-parser"
+
 var stringify = valueParser.stringify
 
 function split(params, start) {

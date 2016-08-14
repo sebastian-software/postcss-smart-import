@@ -24,6 +24,10 @@
     "index.js",
     "lib"
   ],
+  "ava": {
+    "require": ["babel-register"],
+    "babel": "inherit"
+  },
   "dependencies": {
     "object-assign": "^4.1.0",
     "postcss": "^5.1.2",
@@ -35,6 +39,8 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
+    "babel-core": "^6.13.2",
+    "babel-preset-es2015": "^6.13.2",
     "eslint": "^3.3.0"
   },
   "scripts": {

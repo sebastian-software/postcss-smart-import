@@ -1,4 +1,4 @@
-var resolve = require("resolve")
+import resolve from "resolve"
 
 var moduleDirectories = [
   "web_modules",
