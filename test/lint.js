@@ -10,8 +10,10 @@ test("should warn when not @charset and not @import statement before", (t) =>
     processor.process(`a {} @import "";`),
     processor.process(`@media {} @import "";`),
   ])
-  .then(function(results) {
-    results.forEach(function(result) {
+  .then(function(results)
+  {
+    results.forEach(function(result)
+    {
       const warnings = result.warnings()
       t.is(warnings.length, 1)
       t.is(
@@ -23,26 +25,23 @@ test("should warn when not @charset and not @import statement before", (t) =>
 })
 
 test("should not warn if comments before @import", (t) =>
-{
-  return processor.process(`/* skipped comment */ @import "";`)
+  processor.process(`/* skipped comment */ @import "";`)
   .then(function(result) {
     const warnings = result.warnings()
     t.is(warnings.length, 1)
     t.is(warnings[0].text, `Unable to find uri in '@import ""'`)
   })
-})
+)
 
 test("should warn if something before comments", (t) =>
-{
-  return processor.process(`a{} /* skipped comment */ @import "";`)
+  processor.process(`a{} /* skipped comment */ @import "";`)
   .then(function(result) {
     t.is(result.warnings().length, 1)
   })
-})
+)
 
 test("should not warn when @charset or @import statement before", (t) =>
-{
-  return Promise.all([
+  Promise.all([
     processor.process(`@import "bar.css"; @import "bar.css";`, {
       from: "fixtures/imports/foo.css",
     }),
@@ -50,18 +49,19 @@ test("should not warn when @charset or @import statement before", (t) =>
       from: "fixtures/imports/foo.css",
     }),
   ])
-  .then(function(results) {
-    results.forEach(function(result) {
+  .then(function(results)
+  {
+    results.forEach((result) =>
       t.is(result.warnings().length, 0)
-    })
+    )
   })
-})
+)
 
 test("should warn when a user didn't close an import with ;", (t) =>
-{
-  return processor
+  processor
     .process(`@import url('http://') :root{}`)
-    .then(function(result) {
+    .then(function(result)
+    {
       const warnings = result.warnings()
       t.is(warnings.length, 1)
       t.is(
@@ -70,21 +70,23 @@ test("should warn when a user didn't close an import with ;", (t) =>
         "Child nodes are attached to it."
         )
     })
-})
+)
 
 test("should warn on invalid url", (t) =>
-{
-  return processor
+  processor
     .process(`
       @import foo-bar;
       @import ;
       @import '';
+
+
       @import "";
       @import url();
       @import url('');
       @import url("");
     `)
-    .then(function(result) {
+    .then(function(result)
+    {
       const warnings = result.warnings()
       t.is(warnings.length, 7)
       t.is(warnings[0].text, `Unable to find uri in '@import foo-bar'`)
@@ -95,13 +97,13 @@ test("should warn on invalid url", (t) =>
       t.is(warnings[5].text, `Unable to find uri in '@import url('')'`)
       t.is(warnings[6].text, `Unable to find uri in '@import url("")'`)
     })
-})
+)
 
 test("should not warn when a user closed an import with ;", (t) =>
-{
-  return processor
+  processor
     .process(`@import url('http://');`)
-    .then(function(result) {
+    .then(function(result)
+    {
       t.is(result.warnings().length, 0)
     })
-})
+)

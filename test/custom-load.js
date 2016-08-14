@@ -1,22 +1,16 @@
 import test from "ava"
 import compareFixtures from "./helpers/compare-fixtures"
 
-test.serial("should accept content", (t) =>
-{
-  return compareFixtures(t, "custom-load", {
+test.serial("should accept content",
+  (t) => compareFixtures(t, "custom-load", {
     load: () =>
-    {
-      return "custom-content {}"
-    },
+      "custom-content {}"
   })
-})
+)
 
-test.serial("should accept promised content", (t) =>
-{
-  return compareFixtures(t, "custom-load", {
+test.serial("should accept promised content",
+  (t) => compareFixtures(t, "custom-load", {
     load: () =>
-    {
-      return Promise.resolve("custom-content {}")
-    },
+      Promise.resolve("custom-content {}")
   })
-})
+)

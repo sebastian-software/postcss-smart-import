@@ -12,9 +12,8 @@ function resolveModule(id, opts)
   {
     resolve(id, opts, function(err, path)
     {
-      if (err) {
+      if (err)
         return rej(err)
-      }
 
       res(path)
     })

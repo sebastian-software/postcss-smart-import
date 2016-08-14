@@ -14,18 +14,17 @@ test("should apply plugins to root", (t) =>
       {
         css.walk((node) =>
         {
-          if (node.type === "rule") {
+          if (node.type === "rule")
+          {
             rules.push(node.selector)
-            if (node.selector === "bar") {
+            if (node.selector === "bar")
               node.remove()
-            }
-            else {
+            else
               node.selector += "-converted"
-            }
           }
-          if (node.type === "atrule") {
+
+          if (node.type === "atrule")
             atRules.push(node.name)
-          }
         })
       },
     ],
@@ -38,8 +37,7 @@ test("should apply plugins to root", (t) =>
 })
 
 test("should error when value is not an array", (t) =>
-{
-  return postcss()
+  postcss()
     .use(atImport({
       plugins: "foo",
     }))
@@ -48,27 +46,24 @@ test("should error when value is not an array", (t) =>
     {
       t.is(error.message, "plugins option must be an array")
     })
-})
+)
 
 test("should remain silent when value is an empty array", () =>
-{
-  return postcss()
+  postcss()
     .use(atImport({
       plugins: [],
     }))
     .process("")
-})
+)
 
 test("should process custom syntax", (t) =>
-{
-  return compareFixtures(t, "scss-syntax", null, {
+  compareFixtures(t, "scss-syntax", null, {
     syntax: scss,
   })
-})
+)
 
 test("should process custom syntax by parser", (t) =>
-{
-  return compareFixtures(t, "scss-parser", null, {
+  compareFixtures(t, "scss-parser", null, {
     parser: scss,
   })
-})
+)
