@@ -1,6 +1,6 @@
 <img src="assets/postcss.png" alt="PostCSS Logo" width="200" height="200"/>
 
-# PostCSS Smart Import <br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][travis-img]][travis] ![Dependencies][deps-img]
+# PostCSS Smart Import <br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][appveyor-img]][appveyor] ![Dependencies][deps-img]
 
 [PostCSS] plugin for loading/including other files (transform `@import` rules by inlining content) and quering/referring assets (referred in `url()` functions).
 
