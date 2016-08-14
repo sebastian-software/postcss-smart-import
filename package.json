@@ -49,7 +49,7 @@
     "release": "release-it --github.release --npm.publish --non-interactive",
     "release:minor": "release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major",
-    "lint": "eslint src/",
+    "lint": "eslint src/ test/",
     "test": "ava"
   }
 }
