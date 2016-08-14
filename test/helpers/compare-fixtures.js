@@ -1,7 +1,8 @@
-var fs = require("fs")
-var postcss = require("postcss")
-var assign = require("object-assign")
-var atImport = require("../../src")
+import fs from "fs"
+import postcss from "postcss"
+import assign from "object-assign"
+
+import atImport from "../../src"
 
 function read(name) {
   return fs.readFileSync("fixtures/" + name + ".css", "utf8")

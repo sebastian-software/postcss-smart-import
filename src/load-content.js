@@ -1,5 +1,5 @@
-var readCache = require("read-cache")
+import readCache from "read-cache"
 
-module.exports = function(filename) {
+export default function loadContent(filename) {
   return readCache(filename, "utf-8")
 }

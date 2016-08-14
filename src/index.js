@@ -1,11 +1,12 @@
-var path = require("path")
-var assign = require("object-assign")
-var postcss = require("postcss")
-var resolveId = require("./resolve-id")
-var loadContent = require("./load-content")
-var parseStatements = require("./parse-statements")
+import path from "path"
+import assign from "object-assign"
+import postcss from "postcss"
 
-function AtImport(options) {
+import resolveId from "./resolve-id"
+import loadContent from "./load-content"
+import parseStatements from "./parse-statements"
+
+function SmartImport(options) {
   options = assign({
     root: process.cwd(),
     path: [],
@@ -278,7 +279,4 @@ function loadImportContent(
   })
 }
 
-module.exports = postcss.plugin(
-  "postcss-smart-import",
-  AtImport
-)
+export default postcss.plugin("postcss-smart-import", SmartImport)
