@@ -15,6 +15,7 @@ module.exports = function(t, name, opts, postcssOpts, warnings) {
     .then(function(result) {
       var actual = result.css
       var expected = read(name + ".expected")
+
       // handy thing: checkout actual in the *.actual.css file
       fs.writeFile("fixtures/" + name + ".actual.css", actual)
       t.is(actual, expected)

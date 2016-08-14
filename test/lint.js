@@ -4,7 +4,7 @@ import atImport from "../src"
 
 const processor = postcss().use(atImport())
 
-test("should warn when not @charset and not @import statement before", t => {
+test("should warn when not @charset and not @import statement before", (t) => {
   return Promise.all([
     processor.process(`a {} @import "";`),
     processor.process(`@media {} @import "";`),
@@ -21,7 +21,7 @@ test("should warn when not @charset and not @import statement before", t => {
   })
 })
 
-test("should not warn if comments before @import", t => {
+test("should not warn if comments before @import", (t) => {
   return processor.process(`/* skipped comment */ @import "";`)
   .then(function(result) {
     const warnings = result.warnings()
@@ -30,14 +30,14 @@ test("should not warn if comments before @import", t => {
   })
 })
 
-test("should warn if something before comments", t => {
+test("should warn if something before comments", (t) => {
   return processor.process(`a{} /* skipped comment */ @import "";`)
   .then(function(result) {
     t.is(result.warnings().length, 1)
   })
 })
 
-test("should not warn when @charset or @import statement before", t => {
+test("should not warn when @charset or @import statement before", (t) => {
   return Promise.all([
     processor.process(`@import "bar.css"; @import "bar.css";`, {
       from: "fixtures/imports/foo.css",
@@ -53,7 +53,7 @@ test("should not warn when @charset or @import statement before", t => {
   })
 })
 
-test("should warn when a user didn't close an import with ;", t => {
+test("should warn when a user didn't close an import with ;", (t) => {
   return processor
     .process(`@import url('http://') :root{}`)
     .then(function(result) {
@@ -67,7 +67,7 @@ test("should warn when a user didn't close an import with ;", t => {
     })
 })
 
-test("should warn on invalid url", t => {
+test("should warn on invalid url", (t) => {
   return processor
     .process(`
       @import foo-bar;
@@ -91,7 +91,7 @@ test("should warn on invalid url", t => {
     })
 })
 
-test("should not warn when a user closed an import with ;", t => {
+test("should not warn when a user closed an import with ;", (t) => {
   return processor
     .process(`@import url('http://');`)
     .then(function(result) {
