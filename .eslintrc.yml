@@ -13,3 +13,6 @@ parserOptions:
 rules:
   indent:
     - off
+
+  brace-style:
+    - off
