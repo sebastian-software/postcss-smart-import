@@ -10,3 +10,6 @@ parserOptions:
   ecmaFeatures:
     jsx: true
 
+rules:
+  indent:
+    - off
