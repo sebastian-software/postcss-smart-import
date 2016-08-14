@@ -45,23 +45,15 @@ function SmartImport(options) {
       throw new Error("plugins option must be an array")
     }
 
-    return parseStyles(
-      result,
-      styles,
-      options,
-      state,
-      []
-    ).then(function(bundle) {
-
+    return parseStyles(result, styles, options, state, [])
+    .then(function(bundle)
+    {
       applyRaws(bundle)
       applyStyles(bundle, styles)
 
-      if (
-        typeof options.addDependencyTo === "object" &&
-        typeof options.addDependencyTo.addDependency === "function"
-      ) {
-        Object.keys(state.importedFiles)
-        .forEach(options.addDependencyTo.addDependency)
+      if (typeof options.addDependencyTo === "object" && typeof options.addDependencyTo.addDependency === "function")
+      {
+        Object.keys(state.importedFiles).forEach(options.addDependencyTo.addDependency)
       }
 
       if (typeof options.onImport === "function") {
@@ -71,41 +63,49 @@ function SmartImport(options) {
   }
 }
 
-function applyRaws(bundle) {
-  bundle.forEach(function(stmt, index) {
+function applyRaws(bundle)
+{
+  bundle.forEach(function(stmt, index)
+  {
     if (index === 0) {
       return
     }
 
-    if (stmt.parent) {
+    if (stmt.parent)
+    {
       var before = stmt.parent.node.raws.before
-      if (stmt.type === "nodes") {
+      if (stmt.type === "nodes")
         stmt.nodes[0].raws.before = before
-      }
-      else {
+      else
         stmt.node.raws.before = before
-      }
     }
-    else if (stmt.type === "nodes") {
+    else if (stmt.type === "nodes")
+    {
       stmt.nodes[0].raws.before = stmt.nodes[0].raws.before || "\n"
     }
   })
 }
 
-function applyStyles(bundle, styles) {
+function applyStyles(bundle, styles)
+{
   styles.nodes = []
 
-  bundle.forEach(function(stmt) {
-    if (stmt.type === "import") {
+  bundle.forEach(function(stmt)
+  {
+    if (stmt.type === "import")
+    {
       stmt.node.parent = undefined
       styles.append(stmt.node)
     }
-    else if (stmt.type === "media") {
+    else if (stmt.type === "media")
+    {
       stmt.node.parent = undefined
       styles.append(stmt.node)
     }
-    else if (stmt.type === "nodes") {
-      stmt.nodes.forEach(function(node) {
+    else if (stmt.type === "nodes")
+    {
+      stmt.nodes.forEach(function(node)
+      {
         node.parent = undefined
         styles.append(node)
       })
@@ -113,52 +113,56 @@ function applyStyles(bundle, styles) {
   })
 }
 
-function parseStyles(
-  result,
-  styles,
-  options,
-  state,
-  media
-) {
+function parseStyles(result, styles, options, state, media)
+{
   var statements = parseStatements(result, styles)
 
-  return Promise.all(statements.map(function(stmt) {
+  return Promise.all(statements.map(function(stmt)
+  {
     // skip protocol base uri (protocol://url) or protocol-relative
     if (stmt.type !== "import" || /^(?:[a-z]+:)?\/\//i.test(stmt.uri)) {
       return
     }
-    return resolveImportId(
-      result,
-      stmt,
-      options,
-      state
-    )
-  })).then(function() {
+
+    return resolveImportId(result, stmt, options, state)
+  }))
+  .then(function()
+  {
     var imports = []
     var bundle = []
 
     // squash statements and their children
-    statements.forEach(function(stmt) {
-      if (stmt.type === "import") {
-        if (stmt.children) {
-          stmt.children.forEach(function(child, index) {
-            if (child.type === "import") {
+    statements.forEach(function(stmt)
+    {
+      if (stmt.type === "import")
+      {
+        if (stmt.children)
+        {
+          stmt.children.forEach(function(child, index)
+          {
+            if (child.type === "import")
+            {
               imports.push(child)
             }
-            else {
+            else
+            {
               bundle.push(child)
             }
+
             // For better output
-            if (index === 0) {
+            if (index === 0)
+            {
               child.parent = stmt
             }
           })
         }
-        else {
+        else
+        {
           imports.push(stmt)
         }
       }
-      else if (stmt.type === "media" || stmt.type === "nodes") {
+      else if (stmt.type === "media" || stmt.type === "nodes")
+      {
         bundle.push(stmt)
       }
     })
@@ -167,23 +171,23 @@ function parseStyles(
   })
 }
 
-function resolveImportId(
-  result,
-  stmt,
-  options,
-  state
-) {
+function resolveImportId(result, stmt, options, state)
+{
   var atRule = stmt.node
   var base = atRule.source && atRule.source.input && atRule.source.input.file
     ? path.dirname(atRule.source.input.file)
     : options.root
 
   return Promise.resolve(options.resolve(stmt.uri, base, options))
-  .then(function(resolved) {
-    if (!Array.isArray(resolved)) {
+  .then(function(resolved)
+  {
+    if (!Array.isArray(resolved))
+    {
       resolved = [ resolved ]
     }
-    return Promise.all(resolved.map(function(file) {
+
+    return Promise.all(resolved.map(function(file)
+    {
       return loadImportContent(
         result,
         stmt,
@@ -193,9 +197,11 @@ function resolveImportId(
       )
     }))
   })
-  .then(function(result) {
+  .then(function(result)
+  {
     // Merge loaded statements
-    stmt.children = result.reduce(function(result, statements) {
+    stmt.children = result.reduce(function(result, statements)
+    {
       if (statements) {
         result = result.concat(statements)
       }
@@ -207,19 +213,13 @@ function resolveImportId(
   })
 }
 
-function loadImportContent(
-  result,
-  stmt,
-  filename,
-  options,
-  state
-) {
+function loadImportContent(result, stmt, filename, options, state)
+{
   var atRule = stmt.node
-  if (options.skipDuplicates) {
+  if (options.skipDuplicates)
+  {
     // skip files already imported at the same scope
-    if (
-      state.importedFiles[filename]
-    ) {
+    if (state.importedFiles[filename]) {
       return
     }
 
@@ -237,44 +237,42 @@ function loadImportContent(
       return typeof transformed === "string" ? transformed : content
     })
   })
-  .then(function(content) {
-    if (content.trim() === "") {
+  .then(function(content)
+  {
+    if (content.trim() === "")
+    {
       result.warn(filename + " is empty", { node: atRule })
       return
     }
 
     // skip previous imported files not containing @import rules
-    if (
-      state.hashFiles[content]
-    ) {
+    if (state.hashFiles[content]) {
       return
     }
 
     return postcss(options.plugins).process(content, {
       from: filename,
       syntax: result.opts.syntax,
-      parser: result.opts.parser,
+      parser: result.opts.parser
     })
-    .then(function(importedResult) {
+    .then(function(importedResult)
+    {
       var styles = importedResult.root
       result.messages = result.messages.concat(importedResult.messages)
 
-      if (options.skipDuplicates) {
+      if (options.skipDuplicates)
+      {
         var hasImport = styles.some(function(child) {
           return child.type === "atrule" && child.name === "import"
         })
+
         if (!hasImport) {
           state.hashFiles[content] = true
         }
       }
 
       // recursion: import @import from imported file
-      return parseStyles(
-        result,
-        styles,
-        options,
-        state
-      )
+      return parseStyles(result,styles,options,state)
     })
   })
 }
