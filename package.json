@@ -15,6 +15,7 @@
   "author": "Sebastian Werner",
   "license": "MIT",
   "main": "lib/index.js",
+  "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "postcss": "^5.1.2",
     "postcss-scss": "^0.1.9",
     "postcss-value-parser": "^3.3.0",
+    "prepublish-lib": "^0.1.1",
     "read-cache": "^1.0.0",
     "resolve": "^1.1.7",
     "sugarss": "^0.1.5"
@@ -55,7 +57,7 @@
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major",
     "lint": "eslint --quiet src/ test/ || true",
     "test": "ava",
-    "prepublish": "npm run transpile",
+    "prepublish": "prepublish-lib",
     "transpile": "node scripts/transpile.js"
   }
 }
