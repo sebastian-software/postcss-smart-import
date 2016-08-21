@@ -12,3 +12,4 @@ appveyor.yml
 .gitattributes
 .npmignore
 .travis.yml
+.eslintignore
