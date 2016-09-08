@@ -11,9 +11,13 @@ deploy: off
 
 install:
   - ps: Install-Product node $env:nodejs_version
+  - npm prune
   - npm install
 
 test_script:
   - node --version
   - npm --version
   - cmd: "npm test"
+
+cache:
+  - node_modules
