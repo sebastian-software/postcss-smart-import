@@ -45,7 +45,7 @@
     "babel-preset-es2016": "^6.11.3",
     "babel-preset-stage-1": "^6.13.0",
     "babel-runtime": "^6.11.6",
-    "eslint": "^3.4.0",
+    "eslint": "^3.5.0",
     "fs-extra": "^0.30.0",
     "prepublish-lib": "^0.4.0",
     "rimraf": "^2.5.4",
