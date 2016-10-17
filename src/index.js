@@ -256,7 +256,7 @@ function loadImportContent(result, stmt, filename, options, state)
         }
 
         result.messages.push({
-          type: "dependecy",
+          type: "dependency",
           file: filename
         })
 
