@@ -7,6 +7,10 @@ matrix:
   fast_finish: true
 env:
   - CXX=g++-4.8
+before_install:
+  - npm -g install npm@latest
+  - node --version
+  - npm --version
 addons:
   apt:
     sources:
