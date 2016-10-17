@@ -255,6 +255,11 @@ function loadImportContent(result, stmt, filename, options, state)
             state.hashFiles[content] = true
         }
 
+        result.messages.push({
+          type: "dependecy",
+          file: filename
+        })
+
         // recursion: import @import from imported file
         return parseStyles(result, styles, options, state)
       })
