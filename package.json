@@ -45,11 +45,11 @@
     "babel-preset-es2016": "^6.16.0",
     "babel-preset-stage-1": "^6.16.0",
     "babel-runtime": "^6.11.6",
-    "eslint": "^3.7.1",
+    "eslint": "^3.8.0",
     "fs-extra": "^0.30.0",
     "prepublish-lib": "^0.4.1",
     "rimraf": "^2.5.4",
-    "s15e-javascript": "^0.2.3"
+    "s15e-javascript": "^0.2.4"
   },
   "scripts": {
     "nsp": "nsp check --output summary",
