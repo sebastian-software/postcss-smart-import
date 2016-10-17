@@ -10,7 +10,7 @@
     "npm"
   ],
   "engines": {
-    "node": "~6.3.0"
+    "node": "> 4.0.0"
   },
   "author": "Sebastian Werner",
   "license": "MIT",
