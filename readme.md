@@ -62,14 +62,14 @@ work from input dirname.
 // dependencies
 var fs = require("fs")
 var postcss = require("postcss")
-var atImport = require("postcss-smart-import")
+var smartImport = require("postcss-smart-import")
 
 // css to be processed
 var css = fs.readFileSync("css/input.css", "utf8")
 
 // process css
 postcss()
-  .use(atImport())
+  .use(smartImport())
   .process(css, {
     // `from` option is required so relative import can work from input dirname
     from: "css/input.css"
@@ -90,8 +90,6 @@ Using this `input.css`:
 
 @import "css/foo.css"; /* relative to stylesheets/ according to `from` option above */
 
-@import "css/bar.css" (min-width: 25em);
-
 body {
   background: black;
 }
@@ -104,10 +102,6 @@ will give you:
 /* ... content of ./node_modules/normalize.css/normalize.css */
 
 /* ... content of foo.css */
-
-@media (min-width: 25em) {
-/* ... content of bar.css */
-}
 
 body {
   background: black;
@@ -244,7 +238,7 @@ postcss()
 
 ## Contributing
 
-* ⇄ Pull requests and ★ Stars are always welcome.
+* Pull requests and Stars are always welcome.
 * For bugs and feature requests, please create an issue.
 * Pull requests must be accompanied by passing automated tests (`$ npm test`).
 
