@@ -5,6 +5,7 @@ import postcss from "postcss"
 import resolveId from "./resolve-id"
 import loadContent from "./load-content"
 import parseStatements from "./parse-statements"
+import promiseEach from "promise-each"
 
 function SmartImport(options)
 {
@@ -112,7 +113,7 @@ function parseStyles(result, styles, options, state, media)
 {
   var statements = parseStatements(result, styles)
 
-  return Promise.all(statements.map(function(stmt)
+  return Promise.resolve(statements).then(promiseEach(function(stmt)
   {
     // skip protocol base uri (protocol://url) or protocol-relative
     if (stmt.type !== "import" || /^(?:[a-z]+:)?\/\//i.test(stmt.uri))
