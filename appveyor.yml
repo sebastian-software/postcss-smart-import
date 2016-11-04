@@ -33,4 +33,4 @@ test_script:
 
 cache:
   - node_modules
-  - $HOME/.yarn-cache
+  - "%LOCALAPPDATA%/Yarn"
