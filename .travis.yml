@@ -11,6 +11,11 @@ matrix:
 env:
   - CXX=g++-4.8
 
+cache:
+  directories:
+    - node_modules
+    - $HOME/.yarn-cache
+
 before_install:
   - npm -g install npm@latest
   - node --version

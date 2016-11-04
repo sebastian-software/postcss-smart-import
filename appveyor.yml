@@ -26,11 +26,11 @@ install:
   - npm -g install npm@latest
   - node --version
   - npm --version
-  - npm prune
-  - npm install
+  - yarn || npm prune && npm install
 
 test_script:
   - npm test
 
 cache:
   - node_modules
+  - $HOME/.yarn-cache
