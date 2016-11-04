@@ -6,31 +6,31 @@ import atImport from "../src"
 import compareFixtures from "./helpers/compare-fixtures"
 
 test("should import stylsheets", (t) =>
-{
-  return compareFixtures(t, "simple")
-})
+
+   compareFixtures(t, "simple")
+)
 
 test("should not import a stylsheet twice", (t) =>
-{
-  return compareFixtures(t, "no-duplicate")
-})
+
+   compareFixtures(t, "no-duplicate")
+)
 
 test("should be able to import a stylsheet twice", (t) =>
-{
-  return compareFixtures(t, "duplicates", {
-    skipDuplicates: false,
-  })
-})
+
+   compareFixtures(t, "duplicates", {
+     skipDuplicates: false,
+   })
+)
 
 test("should import stylsheets with same content", (t) =>
-{
-  return compareFixtures(t, "same")
-})
+
+   compareFixtures(t, "same")
+)
 
 test("should ignore & adjust external import", (t) =>
-{
-  return compareFixtures(t, "ignore")
-})
+
+   compareFixtures(t, "ignore")
+)
 
 test("should not fail with only one absolute import", (t) =>
 {
@@ -46,15 +46,15 @@ test("should not fail with only one absolute import", (t) =>
 })
 
 test("should not fail with absolute and local import", (t) =>
-{
-  return postcss()
+
+   postcss()
     .use(atImport())
     .process("@import url('http://');\n@import 'fixtures/imports/foo.css';")
     .then((result) =>
     {
       t.is(result.css, "@import url('http://');\nfoo{}")
     })
-})
+)
 
 test("should output readable trace", (t) =>
 {
@@ -76,8 +76,8 @@ test("should output readable trace", (t) =>
 })
 
 test("should contain a correct sourcemap", (t) =>
-{
-  return postcss()
+
+   postcss()
     .use(atImport())
     .process(readFileSync("sourcemap/in.css"), {
       from: "sourcemap/in.css",
@@ -93,11 +93,11 @@ test("should contain a correct sourcemap", (t) =>
         readFileSync("sourcemap/out.css.map", "utf8").trim()
       )
     })
-})
+)
 
 test("inlined @import should keep PostCSS AST references clean", (t) =>
-{
-  return postcss()
+
+   postcss()
     .use(atImport())
     .process("@import 'fixtures/imports/foo.css';\nbar{}")
     .then((result) =>
@@ -107,24 +107,24 @@ test("inlined @import should keep PostCSS AST references clean", (t) =>
         t.is(result.root, node.parent)
       })
     })
-})
+)
 
 test("should work with empty files", (t) =>
-{
-  return compareFixtures(t, "empty-and-useless", {
-    path: "fixtures/imports",
-  }, null, [
-    path.resolve("fixtures/imports/empty.css") + " is empty",
-  ])
-})
+
+   compareFixtures(t, "empty-and-useless", {
+     path: "fixtures/imports",
+   }, null, [
+     path.resolve("fixtures/imports/empty.css") + " is empty",
+   ])
+)
 
 test("should work with no styles without throwing an error", (t) =>
-{
-  return postcss()
+
+   postcss()
     .use(atImport())
     .process("")
     .then((result) =>
     {
       t.is(result.warnings().length, 0)
     })
-})
+)

@@ -5,8 +5,7 @@ var stringify = valueParser.stringify
 function split(params, start)
 {
   var list = []
-  var last = params.reduce(function(item, node, index)
-  {
+  var last = params.reduce((item, node, index) => {
     if (index < start) {
       return ""
     }
@@ -28,8 +27,7 @@ export default function(result, styles)
   var statements = []
   var nodes = []
 
-  styles.each(function(node)
-  {
+  styles.each((node) => {
     var stmt
     if (node.type === "atrule" && node.name === "import")
       stmt = parseImport(result, node)

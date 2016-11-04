@@ -6,8 +6,8 @@ import { readFileSync } from "fs"
 
 test("should have a callback that returns an object" +
   " containing imported files", (t) =>
-  {
-  return postcss()
+
+   postcss()
     .use(atImport({
       path: "fixtures/imports",
       onImport: (files) =>
@@ -25,7 +25,7 @@ test("should have a callback that returns an object" +
     .process(readFileSync("fixtures/media-import.css"), {
       from: "fixtures/media-import.css",
     })
-})
+)
 
 test("should have a callback shortcut for webpack", (t) =>
 {

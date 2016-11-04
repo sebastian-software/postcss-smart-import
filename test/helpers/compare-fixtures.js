@@ -13,8 +13,7 @@ module.exports = function(t, name, opts, postcssOpts, warnings)
   opts = assign({ path: "fixtures/imports" }, opts)
   return postcss(atImport(opts))
     .process(read(name), postcssOpts || {})
-    .then(function(result)
-    {
+    .then((result) => {
       var actual = result.css
       var expected = read(name + ".expected")
 
@@ -25,8 +24,7 @@ module.exports = function(t, name, opts, postcssOpts, warnings)
       if (!warnings)
         warnings = []
 
-      result.warnings().forEach(function(warning, index)
-      {
+      result.warnings().forEach((warning, index) => {
         t.is(
           warning.text,
           warnings[index],

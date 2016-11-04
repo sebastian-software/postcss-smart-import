@@ -5,15 +5,13 @@ import atImport from "../src"
 const processor = postcss().use(atImport())
 
 test("should warn when not @charset and not @import statement before", (t) =>
-{
-  return Promise.all([
-    processor.process(`a {} @import "";`),
-    processor.process(`@media {} @import "";`),
-  ])
-  .then(function(results)
-  {
-    results.forEach(function(result)
-    {
+
+   Promise.all([
+     processor.process(`a {} @import "";`),
+     processor.process(`@media {} @import "";`),
+   ])
+  .then((results) => {
+    results.forEach((result) => {
       const warnings = result.warnings()
       t.is(warnings.length, 1)
       t.is(
@@ -22,11 +20,11 @@ test("should warn when not @charset and not @import statement before", (t) =>
       )
     })
   })
-})
+)
 
 test("should not warn if comments before @import", (t) =>
   processor.process(`/* skipped comment */ @import "";`)
-  .then(function(result) {
+  .then((result) => {
     const warnings = result.warnings()
     t.is(warnings.length, 1)
     t.is(warnings[0].text, `Unable to find uri in '@import ""'`)
@@ -35,7 +33,7 @@ test("should not warn if comments before @import", (t) =>
 
 test("should warn if something before comments", (t) =>
   processor.process(`a{} /* skipped comment */ @import "";`)
-  .then(function(result) {
+  .then((result) => {
     t.is(result.warnings().length, 1)
   })
 )
@@ -49,8 +47,7 @@ test("should not warn when @charset or @import statement before", (t) =>
       from: "fixtures/imports/foo.css",
     }),
   ])
-  .then(function(results)
-  {
+  .then((results) => {
     results.forEach((result) =>
       t.is(result.warnings().length, 0)
     )
@@ -60,8 +57,7 @@ test("should not warn when @charset or @import statement before", (t) =>
 test("should warn when a user didn't close an import with ;", (t) =>
   processor
     .process(`@import url('http://') :root{}`)
-    .then(function(result)
-    {
+    .then((result) => {
       const warnings = result.warnings()
       t.is(warnings.length, 1)
       t.is(
@@ -85,8 +81,7 @@ test("should warn on invalid url", (t) =>
       @import url('');
       @import url("");
     `)
-    .then(function(result)
-    {
+    .then((result) => {
       const warnings = result.warnings()
       t.is(warnings.length, 7)
       t.is(warnings[0].text, `Unable to find uri in '@import foo-bar'`)
@@ -102,8 +97,7 @@ test("should warn on invalid url", (t) =>
 test("should not warn when a user closed an import with ;", (t) =>
   processor
     .process(`@import url('http://');`)
-    .then(function(result)
-    {
+    .then((result) => {
       t.is(result.warnings().length, 0)
     })
 )

@@ -27,10 +27,9 @@ function SmartImport(options)
   if (!Array.isArray(options.path))
     options.path = []
 
-  options.path = options.path.map(function(p)
-  {
-    return path.resolve(options.root, p)
-  })
+  options.path = options.path.map((p) =>
+     path.resolve(options.root, p)
+  )
 
   return function(styles, result)
   {
@@ -46,8 +45,7 @@ function SmartImport(options)
       throw new Error("plugins option must be an array")
 
     return parseStyles(result, styles, options, state, [])
-      .then(function(bundle)
-      {
+      .then((bundle) => {
         applyRaws(bundle)
         applyStyles(bundle, styles)
 
@@ -62,8 +60,7 @@ function SmartImport(options)
 
 function applyRaws(bundle)
 {
-  bundle.forEach(function(stmt, index)
-  {
+  bundle.forEach((stmt, index) => {
     if (index === 0)
       return
 
@@ -86,8 +83,7 @@ function applyStyles(bundle, styles)
 {
   styles.nodes = []
 
-  bundle.forEach(function(stmt)
-  {
+  bundle.forEach((stmt) => {
     if (stmt.type === "import")
     {
       stmt.node.parent = undefined
@@ -100,8 +96,7 @@ function applyStyles(bundle, styles)
     }
     else if (stmt.type === "nodes")
     {
-      stmt.nodes.forEach(function(node)
-      {
+      stmt.nodes.forEach((node) => {
         node.parent = undefined
         styles.append(node)
       })
@@ -113,28 +108,24 @@ function parseStyles(result, styles, options, state, media)
 {
   var statements = parseStatements(result, styles)
 
-  return Promise.resolve(statements).then(promiseEach(function(stmt)
-  {
+  return Promise.resolve(statements).then(promiseEach((stmt) => {
     // skip protocol base uri (protocol://url) or protocol-relative
-    if (stmt.type !== "import" || /^(?:[a-z]+:)?\/\//i.test(stmt.uri))
+    if (stmt.type !== "import" || (/^(?:[a-z]+:)?\/\//i).test(stmt.uri))
       return
     else
       return resolveImportId(result, stmt, options, state)
   }))
-  .then(function()
-  {
+  .then(() => {
     var imports = []
     var bundle = []
 
     // squash statements and their children
-    statements.forEach(function(stmt)
-    {
+    statements.forEach((stmt) => {
       if (stmt.type === "import")
       {
         if (stmt.children)
         {
-          stmt.children.forEach(function(child, index)
-          {
+          stmt.children.forEach((child, index) => {
             if (child.type === "import")
               imports.push(child)
             else
@@ -168,34 +159,30 @@ function resolveImportId(result, stmt, options, state)
     : options.root
 
   return Promise.resolve(options.resolve(stmt.uri, base, options))
-    .then(function(resolved)
-    {
+    .then((resolved) => {
       if (!Array.isArray(resolved))
         resolved = [ resolved ]
 
-      return Promise.all(resolved.map(function(file)
-      {
-        return loadImportContent(
+      return Promise.all(resolved.map((file) =>
+         loadImportContent(
           result,
           stmt,
           file,
           options,
           state
         )
-      }))
+      ))
     })
-    .then(function(result)
-    {
+    .then((result) => {
       // Merge loaded statements
-      stmt.children = result.reduce(function(result, statements)
-      {
+      stmt.children = result.reduce((result, statements) => {
         if (statements) {
           result = result.concat(statements)
         }
         return result
       }, [])
     })
-    .catch(function(err) {
+    .catch((err) => {
       result.warn(err.message, { node: atRule })
     })
 }
@@ -214,18 +201,16 @@ function loadImportContent(result, stmt, filename, options, state)
   }
 
   return Promise.resolve(options.load(filename, options))
-    .then(function(content)
-    {
+    .then((content) => {
       if (typeof options.transform !== "function") {
         return content
       }
       return Promise.resolve(options.transform(content, filename, options))
-      .then(function(transformed) {
-        return typeof transformed === "string" ? transformed : content
-      })
+      .then((transformed) =>
+         typeof transformed === "string" ? transformed : content
+      )
     })
-    .then(function(content)
-    {
+    .then((content) => {
       if (content.trim() === "")
       {
         result.warn(filename + " is empty", { node: atRule })
@@ -241,16 +226,15 @@ function loadImportContent(result, stmt, filename, options, state)
         syntax: result.opts.syntax,
         parser: result.opts.parser
       })
-      .then(function(importedResult)
-      {
+      .then((importedResult) => {
         var styles = importedResult.root
         result.messages = result.messages.concat(importedResult.messages)
 
         if (options.skipDuplicates)
         {
-          var hasImport = styles.some(function(child) {
-            return child.type === "atrule" && child.name === "import"
-          })
+          var hasImport = styles.some((child) =>
+             child.type === "atrule" && child.name === "import"
+          )
 
           if (!hasImport)
             state.hashFiles[content] = true

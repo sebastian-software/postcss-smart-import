@@ -8,10 +8,8 @@ var moduleDirectories =
 
 function resolveModule(id, opts)
 {
-  return new Promise(function(res, rej)
-  {
-    resolve(id, opts, function(err, path)
-    {
+  return new Promise((res, rej) => {
+    resolve(id, opts, (err, path) => {
       if (err)
         return rej(err)
 
@@ -38,7 +36,7 @@ export default function(id, base, options)
       else if (pkg.browser) {
         pkg.main = pkg.browser
       }
-      else if (!pkg.main || !/\.css$/.test(pkg.main)) {
+      else if (!pkg.main || !(/\.css$/).test(pkg.main)) {
         pkg.main = "index.css"
       }
       return pkg
@@ -46,10 +44,10 @@ export default function(id, base, options)
   }
 
   return resolveModule("./" + id, resolveOpts)
-    .catch(function() {
-      return resolveModule(id, resolveOpts)
-    })
-    .catch(function() {
+    .catch(() =>
+       resolveModule(id, resolveOpts)
+    )
+    .catch(() => {
       if (paths.indexOf(base) === -1) {
         paths.unshift(base)
       }
