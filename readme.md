@@ -18,7 +18,7 @@ Think of `postcss-import` + `postcss-url` + `postcss-assets`.
 
 This plugin can consume local files, `node_modules` or `web_modules`.
 To resolve path of an `@import` rule, it can look into root directory (by default `process.cwd()`), `web_modules`, `node_modules`
-or local modules. _When importing a module, it will looks for `index.[css,sss,scss,sass,less]` or file referenced in `package.json` in the `style`, `browser`, `main` fields._
+or local modules. _When importing a module, it will look for `index.[css,sss,scss,sass,less]` or file referenced in `package.json` in the `style`, `browser`, `main` fields._
 You can also provide manually multiples paths where to look at.
 
 
