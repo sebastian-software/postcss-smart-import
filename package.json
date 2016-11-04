@@ -50,7 +50,7 @@
     "fs-extra": "^1.0.0",
     "prepublish-lib": "^0.5.2",
     "rimraf": "^2.5.4",
-    "s15e-javascript": "^0.2.4"
+    "s15e-javascript": "^0.3.5"
   },
   "scripts": {
     "nsp": "nsp check --output summary",
