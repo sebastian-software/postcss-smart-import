@@ -1,10 +1,13 @@
 <img src="assets/postcss.png" alt="PostCSS Logo" width="200" height="200"/>
 
-# PostCSS Smart Import <br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][appveyor-img]][appveyor] ![Dependencies][deps-img]
+# PostCSS Smart Import <br/>[![Sponsored by][sponsor-img]][sponsor] [![Version][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][appveyor-img]][appveyor] [![Dependencies][deps-img]][deps]
 
 [PostCSS] plugin for loading/including other files (transform `@import` rules by inlining content) and quering/referring assets (referred in `url()` functions).
 
 [PostCSS]: https://github.com/postcss/postcss
+[sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
+[sponsor]: https://www.sebastian-software.de
+[deps]: https://david-dm.org/sebastian-software/postcss-smart-import
 [deps-img]: https://david-dm.org/sebastian-software/postcss-smart-import.svg
 [npm]: https://www.npmjs.com/package/postcss-smart-import
 [npm-downloads-img]: https://img.shields.io/npm/dm/postcss-smart-import.svg
