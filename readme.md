@@ -13,9 +13,9 @@
 [npm-downloads-img]: https://img.shields.io/npm/dm/postcss-smart-import.svg
 [npm-version-img]: https://img.shields.io/npm/v/postcss-smart-import.svg
 [travis-img]: https://img.shields.io/travis/sebastian-software/postcss-smart-import/master.svg?branch=master&label=unix%20build
-[appveyor-img]: https://img.shields.io/appveyor/ci/swernerx/postcss-smart-import/master.svg?label=windows%20build
+[appveyor-img]: https://img.shields.io/appveyor/ci/swernerx/postcss-smart-import-0se3r/master.svg?label=windows%20build
 [travis]: https://travis-ci.org/sebastian-software/postcss-smart-import
-[appveyor]: https://ci.appveyor.com/project/swernerx/postcss-smart-import/branch/master
+[appveyor]: https://ci.appveyor.com/project/swernerx/postcss-smart-import-0se3r/branch/master
 
 Think of `postcss-import` + `postcss-url` + `postcss-assets`.
 
