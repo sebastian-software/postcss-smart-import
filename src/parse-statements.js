@@ -2,26 +2,6 @@ import valueParser from "postcss-value-parser"
 
 var stringify = valueParser.stringify
 
-function split(params, start)
-{
-  var list = []
-  var last = params.reduce((item, node, index) => {
-    if (index < start) {
-      return ""
-    }
-
-    if (node.type === "div" && node.value === ",") {
-      list.push(item)
-      return ""
-    }
-
-    return item + stringify(node)
-  }, "")
-
-  list.push(last)
-  return list
-}
-
 export default function parseStatements(result, styles)
 {
   var statements = []

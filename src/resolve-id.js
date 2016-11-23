@@ -1,4 +1,5 @@
 import { default as resolveId } from "resolve"
+import { includes } from "lodash"
 
 var moduleDirectories = [
   "web_modules",
@@ -44,7 +45,7 @@ export default function(id, base, options)
        resolveModule(id, resolveOpts)
     )
     .catch(() => {
-      if (paths.indexOf(base) === -1) {
+      if (!includes(paths, base)) {
         paths.unshift(base)
       }
 
