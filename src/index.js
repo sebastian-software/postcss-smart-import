@@ -49,9 +49,6 @@ function SmartImport(options)
         applyRaws(bundle)
         applyStyles(bundle, styles)
 
-        if (typeof options.addDependencyTo === "object" && typeof options.addDependencyTo.addDependency === "function")
-          Object.keys(state.importedFiles).forEach(options.addDependencyTo.addDependency)
-
         if (typeof options.onImport === "function")
           options.onImport(Object.keys(state.importedFiles))
       })
@@ -154,7 +151,11 @@ function parseStyles(result, styles, options, state, media)
 function resolveImportId(result, stmt, options, state)
 {
   var atRule = stmt.node
-  var base = atRule.source && atRule.source.input && atRule.source.input.file
+  var sourceFile = null
+  if (atRule.source && atRule.source.input && atRule.source.input.file) {
+    sourceFile = atRule.source.input.file
+  }
+  var base = sourceFile
     ? path.dirname(atRule.source.input.file)
     : options.root
 
@@ -162,6 +163,15 @@ function resolveImportId(result, stmt, options, state)
     .then((resolved) => {
       if (!Array.isArray(resolved))
         resolved = [ resolved ]
+
+    // Add dependency messages:
+    resolved.forEach(function(file) {
+      result.messages.push({
+        type: "dependency",
+        file: file,
+        parent: sourceFile,
+      })
+    })
 
       return Promise.all(resolved.map((file) =>
          loadImportContent(
@@ -239,11 +249,6 @@ function loadImportContent(result, stmt, filename, options, state)
             if (!hasImport)
               state.hashFiles[content] = true
           }
-
-          result.messages.push({
-            type: "dependency",
-            file: filename
-          })
 
         // recursion: import @import from imported file
           return parseStyles(result, styles, options, state)
