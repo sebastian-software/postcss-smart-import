@@ -1,6 +1,7 @@
 import path from "path"
 import assign from "object-assign"
 import postcss from "postcss"
+import { get } from "lodash"
 
 import resolveId from "./resolve-id"
 import loadContent from "./load-content"
@@ -155,13 +156,8 @@ function parseStyles(result, styles, options, state, media)
 function resolveImportId(result, stmt, options, state)
 {
   var atRule = stmt.node
-  var sourceFile = null
-  if (atRule.source && atRule.source.input && atRule.source.input.file) {
-    sourceFile = atRule.source.input.file
-  }
-  var base = sourceFile
-    ? path.dirname(atRule.source.input.file)
-    : options.root
+  var sourceFile = get(atRule, "source.input.file")
+  var base = sourceFile ? path.dirname(sourceFile) : options.root
 
   return Promise.resolve(options.resolve(stmt.uri, base, options))
     .then((resolved) => {
