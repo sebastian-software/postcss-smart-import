@@ -41,10 +41,10 @@ test("should warn if something before comments", (t) =>
 test("should not warn when @charset or @import statement before", (t) =>
   Promise.all([
     processor.process(`@import "bar.css"; @import "bar.css";`, {
-      from: "fixtures/imports/foo.css",
+      from: "test/fixtures/imports/foo.css",
     }),
     processor.process(`@charset "bar.css"; @import "bar.css";`, {
-      from: "fixtures/imports/foo.css",
+      from: "test/fixtures/imports/foo.css",
     }),
   ])
   .then((results) => {
