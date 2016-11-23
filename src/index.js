@@ -28,8 +28,8 @@ function SmartImport(options)
   if (!Array.isArray(options.path))
     options.path = []
 
-  options.path = options.path.map((p) =>
-     path.resolve(options.root, p)
+  options.path = options.path.map((possibleRelativePath) =>
+    path.resolve(options.root, possibleRelativePath)
   )
 
   return function(styles, result)
@@ -39,8 +39,9 @@ function SmartImport(options)
       hashFiles: {}
     }
 
-    if (styles.source && styles.source.input && styles.source.input.file)
-      state.importedFiles[styles.source.input.file] = {}
+    var fileName = get(styles, "source.input.file")
+    if (fileName)
+      state.importedFiles[fileName] = {}
 
     if (options.plugins && !Array.isArray(options.plugins))
       throw new Error("plugins option must be an array")
@@ -111,7 +112,7 @@ function parseStyles(result, styles, options, state, media)
   return Promise.resolve(statements).then(promiseEach((stmt) => {
     // skip protocol base uri (protocol://url) or protocol-relative
     if (stmt.type !== "import" || (/^(?:[a-z]+:)?\/\//i).test(stmt.uri))
-      return
+      return null
     else
       return resolveImportId(result, stmt, options, state)
   }))
@@ -183,13 +184,13 @@ function resolveImportId(result, stmt, options, state)
         )
       ))
     })
-    .then((result) => {
+    .then((importedContent) => {
       // Merge loaded statements
-      stmt.children = result.reduce((result, statements) => {
+      stmt.children = importedContent.reduce((currentContent, statements) => {
         if (statements) {
-          result = result.concat(statements)
+          currentContent = currentContent.concat(statements)
         }
-        return result
+        return currentContent
       }, [])
     })
     .catch((err) => {
@@ -204,7 +205,7 @@ function loadImportContent(result, stmt, filename, options, state)
   {
     // skip files already imported at the same scope
     if (state.importedFiles[filename])
-      return
+      return null
 
     // save imported files to skip them next time
     state.importedFiles[filename] = true
@@ -224,12 +225,12 @@ function loadImportContent(result, stmt, filename, options, state)
       if (content.trim() === "")
       {
         result.warn(filename + " is empty", { node: atRule })
-        return
+        return null
       }
 
       // skip previous imported files not containing @import rules
       if (state.hashFiles[content])
-        return
+        return null
 
       return postcss(options.plugins).process(content, {
         from: filename,
