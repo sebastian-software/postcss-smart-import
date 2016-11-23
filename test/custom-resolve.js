@@ -20,7 +20,7 @@ test.serial("should accept promised file", (t) =>
        resolve: () =>
 
        Promise.resolve(
-        path.resolve("test/fixtures/imports/custom-resolve-1.css")
+         path.resolve("test/fixtures/imports/custom-resolve-1.css")
       )
 
      })
@@ -35,7 +35,7 @@ test.serial("should accept array of files", (t) =>
          [
            path.resolve("test/fixtures/imports/custom-resolve-1.css"),
            path.resolve("test/fixtures/imports/custom-resolve-2.css"),
-           path.resolve("test/fixtures/imports/custom-resolve-1.css"),
+           path.resolve("test/fixtures/imports/custom-resolve-1.css")
          ]
 
      })
@@ -50,7 +50,7 @@ test.serial("should accept promised array of files", (t) =>
        Promise.resolve([
          path.resolve("test/fixtures/imports/custom-resolve-1.css"),
          path.resolve("test/fixtures/imports/custom-resolve-2.css"),
-         path.resolve("test/fixtures/imports/custom-resolve-1.css"),
+         path.resolve("test/fixtures/imports/custom-resolve-1.css")
        ])
 
      })

@@ -8,50 +8,50 @@ test("should warn when not @charset and not @import statement before", (t) =>
 
    Promise.all([
      processor.process(`a {} @import "";`),
-     processor.process(`@media {} @import "";`),
+     processor.process(`@media {} @import "";`)
    ])
-  .then((results) => {
-    results.forEach((result) => {
-      const warnings = result.warnings()
-      t.is(warnings.length, 1)
-      t.is(
-        warnings[0].text,
-        "@import must precede all other statements (besides @charset)"
+     .then((results) => {
+       results.forEach((result) => {
+         const warnings = result.warnings()
+         t.is(warnings.length, 1)
+         t.is(
+           warnings[0].text,
+           "@import must precede all other statements (besides @charset)"
       )
-    })
-  })
+       })
+     })
 )
 
 test("should not warn if comments before @import", (t) =>
   processor.process(`/* skipped comment */ @import "";`)
-  .then((result) => {
-    const warnings = result.warnings()
-    t.is(warnings.length, 1)
-    t.is(warnings[0].text, `Unable to find uri in '@import ""'`)
-  })
+    .then((result) => {
+      const warnings = result.warnings()
+      t.is(warnings.length, 1)
+      t.is(warnings[0].text, `Unable to find uri in '@import ""'`)
+    })
 )
 
 test("should warn if something before comments", (t) =>
   processor.process(`a{} /* skipped comment */ @import "";`)
-  .then((result) => {
-    t.is(result.warnings().length, 1)
-  })
+    .then((result) => {
+      t.is(result.warnings().length, 1)
+    })
 )
 
 test("should not warn when @charset or @import statement before", (t) =>
   Promise.all([
     processor.process(`@import "bar.css"; @import "bar.css";`, {
-      from: "test/fixtures/imports/foo.css",
+      from: "test/fixtures/imports/foo.css"
     }),
     processor.process(`@charset "bar.css"; @import "bar.css";`, {
-      from: "test/fixtures/imports/foo.css",
-    }),
+      from: "test/fixtures/imports/foo.css"
+    })
   ])
-  .then((results) => {
-    results.forEach((result) =>
+    .then((results) => {
+      results.forEach((result) =>
       t.is(result.warnings().length, 0)
     )
-  })
+    })
 )
 
 test("should warn when a user didn't close an import with ;", (t) =>

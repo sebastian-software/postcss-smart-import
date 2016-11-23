@@ -26,20 +26,20 @@ test("should apply plugins to root", (t) =>
           if (node.type === "atrule")
             atRules.push(node.name)
         })
-      },
-    ],
+      }
+    ]
   })
-  .then(() =>
+    .then(() =>
   {
-    t.deepEqual(atRules, [ "import" ])
-    t.deepEqual(rules, [ "foo", "bar" ])
-  })
+      t.deepEqual(atRules, [ "import" ])
+      t.deepEqual(rules, [ "foo", "bar" ])
+    })
 })
 
 test("should error when value is not an array", (t) =>
   postcss()
     .use(atImport({
-      plugins: "foo",
+      plugins: "foo"
     }))
     .process("")
     .catch((error) =>
@@ -51,19 +51,19 @@ test("should error when value is not an array", (t) =>
 test("should remain silent when value is an empty array", () =>
   postcss()
     .use(atImport({
-      plugins: [],
+      plugins: []
     }))
     .process("")
 )
 
 test("should process custom syntax", (t) =>
   compareFixtures(t, "scss-syntax", null, {
-    syntax: scss,
+    syntax: scss
   })
 )
 
 test("should process custom syntax by parser", (t) =>
   compareFixtures(t, "scss-parser", null, {
-    parser: scss,
+    parser: scss
   })
 )

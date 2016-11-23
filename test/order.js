@@ -20,6 +20,6 @@ test(`should order nested imports correctly`, (t) => {
            doResolve()
          }
        })
-    ,
+
   })
 })

@@ -1,10 +1,10 @@
 import resolve from "resolve"
 
 var moduleDirectories =
-[
-  "web_modules",
-  "node_modules"
-]
+  [
+    "web_modules",
+    "node_modules"
+  ]
 
 function resolveModule(id, opts)
 {
@@ -23,25 +23,25 @@ export default function(id, base, options)
   var paths = options.path
 
   var resolveOpts =
-  {
-    basedir: base,
-    moduleDirectory: moduleDirectories,
-    paths: paths,
-    extensions: [ ".css", ".sss", ".less", ".scss", ".sass" ],
-    packageFilter: function processPackage(pkg)
     {
-      if (pkg.style) {
-        pkg.main = pkg.style
+      basedir: base,
+      moduleDirectory: moduleDirectories,
+      paths: paths,
+      extensions: [ ".css", ".sss", ".less", ".scss", ".sass" ],
+      packageFilter: function processPackage(pkg)
+    {
+        if (pkg.style) {
+          pkg.main = pkg.style
+        }
+        else if (pkg.browser) {
+          pkg.main = pkg.browser
+        }
+        else if (!pkg.main || !(/\.css$/).test(pkg.main)) {
+          pkg.main = "index.css"
+        }
+        return pkg
       }
-      else if (pkg.browser) {
-        pkg.main = pkg.browser
-      }
-      else if (!pkg.main || !(/\.css$/).test(pkg.main)) {
-        pkg.main = "index.css"
-      }
-      return pkg
     }
-  }
 
   return resolveModule("./" + id, resolveOpts)
     .catch(() =>
@@ -56,7 +56,7 @@ export default function(id, base, options)
         "Failed to find '" + id + "'",
         "in [ ",
         "    " + paths.join(",\n        "),
-        "]",
+        "]"
       ].join("\n    "))
     })
 }

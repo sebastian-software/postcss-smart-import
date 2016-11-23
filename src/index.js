@@ -15,7 +15,7 @@ function SmartImport(options)
     skipDuplicates: true,
     resolve: resolveId,
     load: loadContent,
-    plugins: [],
+    plugins: []
   }, options)
 
   options.root = path.resolve(options.root)
@@ -35,7 +35,7 @@ function SmartImport(options)
   {
     var state = {
       importedFiles: {},
-      hashFiles: {},
+      hashFiles: {}
     }
 
     if (styles.source && styles.source.input && styles.source.input.file)
@@ -115,40 +115,40 @@ function parseStyles(result, styles, options, state, media)
     else
       return resolveImportId(result, stmt, options, state)
   }))
-  .then(() => {
-    var imports = []
-    var bundle = []
+    .then(() => {
+      var imports = []
+      var bundle = []
 
     // squash statements and their children
-    statements.forEach((stmt) => {
-      if (stmt.type === "import")
+      statements.forEach((stmt) => {
+        if (stmt.type === "import")
       {
-        if (stmt.children)
+          if (stmt.children)
         {
-          stmt.children.forEach((child, index) => {
-            if (child.type === "import")
-              imports.push(child)
-            else
+            stmt.children.forEach((child, index) => {
+              if (child.type === "import")
+                imports.push(child)
+              else
               bundle.push(child)
 
             // For better output
-            if (index === 0)
-              child.parent = stmt
-          })
-        }
-        else
+              if (index === 0)
+                child.parent = stmt
+            })
+          }
+          else
         {
-          imports.push(stmt)
+            imports.push(stmt)
+          }
         }
-      }
-      else if (stmt.type === "media" || stmt.type === "nodes")
+        else if (stmt.type === "media" || stmt.type === "nodes")
       {
-        bundle.push(stmt)
-      }
-    })
+          bundle.push(stmt)
+        }
+      })
 
-    return imports.concat(bundle)
-  })
+      return imports.concat(bundle)
+    })
 }
 
 function resolveImportId(result, stmt, options, state)
@@ -165,11 +165,11 @@ function resolveImportId(result, stmt, options, state)
 
       return Promise.all(resolved.map((file) =>
          loadImportContent(
-          result,
-          stmt,
-          file,
-          options,
-          state
+           result,
+           stmt,
+           file,
+           options,
+           state
         )
       ))
     })
@@ -206,7 +206,7 @@ function loadImportContent(result, stmt, filename, options, state)
         return content
       }
       return Promise.resolve(options.transform(content, filename, options))
-      .then((transformed) =>
+        .then((transformed) =>
          typeof transformed === "string" ? transformed : content
       )
     })
@@ -226,28 +226,28 @@ function loadImportContent(result, stmt, filename, options, state)
         syntax: result.opts.syntax,
         parser: result.opts.parser
       })
-      .then((importedResult) => {
-        var styles = importedResult.root
-        result.messages = result.messages.concat(importedResult.messages)
+        .then((importedResult) => {
+          var styles = importedResult.root
+          result.messages = result.messages.concat(importedResult.messages)
 
-        if (options.skipDuplicates)
+          if (options.skipDuplicates)
         {
-          var hasImport = styles.some((child) =>
+            var hasImport = styles.some((child) =>
              child.type === "atrule" && child.name === "import"
           )
 
-          if (!hasImport)
-            state.hashFiles[content] = true
-        }
+            if (!hasImport)
+              state.hashFiles[content] = true
+          }
 
-        result.messages.push({
-          type: "dependency",
-          file: filename
-        })
+          result.messages.push({
+            type: "dependency",
+            file: filename
+          })
 
         // recursion: import @import from imported file
-        return parseStyles(result, styles, options, state)
-      })
+          return parseStyles(result, styles, options, state)
+        })
     })
 }
 
