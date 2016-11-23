@@ -22,24 +22,26 @@ function split(params, start)
   return list
 }
 
-export default function(result, styles)
+export default function parseStatements(result, styles)
 {
   var statements = []
   var nodes = []
 
-  styles.each((node) => {
+  styles.each((node) =>
+  {
     var stmt
     if (node.type === "atrule" && node.name === "import")
       stmt = parseImport(result, node)
 
     if (stmt)
     {
-      if (nodes.length)
+      if (nodes.length > 0)
       {
         statements.push({
           type: "nodes",
           nodes: nodes
         })
+
         nodes = []
       }
 
@@ -51,13 +53,12 @@ export default function(result, styles)
     }
   })
 
-  if (nodes.length)
+  if (nodes.length > 0)
   {
-    statements.push(
-      {
-        type: "nodes",
-        nodes: nodes
-      })
+    statements.push({
+      type: "nodes",
+      nodes: nodes
+    })
   }
 
   return statements
@@ -72,7 +73,7 @@ function parseImport(result, atRule)
 
   if (prev)
   {
-    if (prev.type !== "atrule" || prev.name !== "import" && prev.name !== "charset")
+    if (prev.type !== "atrule" || (prev.name !== "import" && prev.name !== "charset"))
     {
       return result.warn(
         "@import must precede all other statements (besides @charset)",
@@ -84,8 +85,7 @@ function parseImport(result, atRule)
   if (atRule.nodes)
   {
     return result.warn(
-      "It looks like you didn't end your @import statement correctly. " +
-      "Child nodes are attached to it.",
+      "It looks like you didn't end your @import statement correctly. Child nodes are attached to it.",
       { node: atRule }
     )
   }
@@ -97,7 +97,7 @@ function parseImport(result, atRule)
   }
 
   if (
-    !params.length ||
+    params.length === 0 ||
     (
       params[0].type !== "string" ||
       !params[0].value
@@ -105,7 +105,7 @@ function parseImport(result, atRule)
     (
       params[0].type !== "function" ||
       params[0].value !== "url" ||
-      !params[0].nodes.length ||
+      params[0].nodes.length === 0 ||
       !params[0].nodes[0].value
     )
   ) {

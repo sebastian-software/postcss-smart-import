@@ -21,33 +21,33 @@ test("should have a callback that returns an object containing imported files", 
       }
     }))
     .process(readFileSync("test/fixtures/media-import.css"), {
-       from: "test/fixtures/media-import.css"
+      from: "test/fixtures/media-import.css"
     })
 )
 
-test("should add dependency message for each import", t => {
+test("should add dependency message for each import", (t) => {
   return postcss()
     .use(atImport({
-      path: "test/fixtures/imports",
+      path: "test/fixtures/imports"
     }))
     .process(readFileSync("test/fixtures/media-import.css"), {
-      from: "test/fixtures/media-import.css",
+      from: "test/fixtures/media-import.css"
     })
     .then((result) => {
       var deps = result.messages.filter(
-        message => message.type === "dependency"
+        (message) => message.type === "dependency"
       )
       var expected = [
         {
           type: "dependency",
           file: resolve("test/fixtures/imports/media-import-level-2.css"),
-          parent: resolve("test/fixtures/media-import.css"),
+          parent: resolve("test/fixtures/media-import.css")
         },
         {
           type: "dependency",
           file: resolve("test/fixtures/imports/media-import-level-3.css"),
-          parent: resolve("test/fixtures/imports/media-import-level-2.css"),
-        },
+          parent: resolve("test/fixtures/imports/media-import-level-2.css")
+        }
       ]
       t.deepEqual(deps, expected)
     })

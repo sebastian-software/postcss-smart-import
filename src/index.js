@@ -57,7 +57,8 @@ function SmartImport(options)
 
 function applyRaws(bundle)
 {
-  bundle.forEach((stmt, index) => {
+  bundle.forEach((stmt, index) =>
+  {
     if (index === 0)
       return
 
@@ -80,7 +81,8 @@ function applyStyles(bundle, styles)
 {
   styles.nodes = []
 
-  bundle.forEach((stmt) => {
+  bundle.forEach((stmt) =>
+  {
     if (stmt.type === "import")
     {
       stmt.node.parent = undefined
@@ -116,30 +118,32 @@ function parseStyles(result, styles, options, state, media)
       var imports = []
       var bundle = []
 
-    // squash statements and their children
-      statements.forEach((stmt) => {
-        if (stmt.type === "import")
+      // squash statements and their children
+      statements.forEach((stmt) =>
       {
-          if (stmt.children)
+        if (stmt.type === "import")
         {
-            stmt.children.forEach((child, index) => {
+          if (stmt.children)
+          {
+            stmt.children.forEach((child, index) =>
+            {
               if (child.type === "import")
                 imports.push(child)
               else
-              bundle.push(child)
+                bundle.push(child)
 
-            // For better output
+              // For better output
               if (index === 0)
                 child.parent = stmt
             })
           }
           else
-        {
+          {
             imports.push(stmt)
           }
         }
         else if (stmt.type === "media" || stmt.type === "nodes")
-      {
+        {
           bundle.push(stmt)
         }
       })
@@ -164,14 +168,14 @@ function resolveImportId(result, stmt, options, state)
       if (!Array.isArray(resolved))
         resolved = [ resolved ]
 
-    // Add dependency messages:
-    resolved.forEach(function(file) {
-      result.messages.push({
-        type: "dependency",
-        file: file,
-        parent: sourceFile,
+      // Add dependency messages:
+      resolved.forEach((fileName) => {
+        result.messages.push({
+          type: "dependency",
+          file: fileName,
+          parent: sourceFile
+        })
       })
-    })
 
       return Promise.all(resolved.map((file) =>
          loadImportContent(
@@ -236,21 +240,22 @@ function loadImportContent(result, stmt, filename, options, state)
         syntax: result.opts.syntax,
         parser: result.opts.parser
       })
-        .then((importedResult) => {
+        .then((importedResult) =>
+        {
           var styles = importedResult.root
           result.messages = result.messages.concat(importedResult.messages)
 
           if (options.skipDuplicates)
-        {
+          {
             var hasImport = styles.some((child) =>
-             child.type === "atrule" && child.name === "import"
-          )
+              child.type === "atrule" && child.name === "import"
+            )
 
             if (!hasImport)
               state.hashFiles[content] = true
           }
 
-        // recursion: import @import from imported file
+          // recursion: import @import from imported file
           return parseStyles(result, styles, options, state)
         })
     })

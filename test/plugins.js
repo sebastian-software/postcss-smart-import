@@ -42,9 +42,9 @@ test("should error when value is not an array", (t) =>
       plugins: "foo"
     }))
     .process("")
-    .catch((error) =>
+    .catch((err) =>
     {
-      t.is(error.message, "plugins option must be an array")
+      t.is(err.message, "plugins option must be an array")
     })
 )
 

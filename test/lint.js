@@ -75,13 +75,13 @@ test("should warn on invalid url", (t) =>
       @import ;
       @import '';
 
-
       @import "";
       @import url();
       @import url('');
       @import url("");
     `)
     .then((result) => {
+      /* eslint-disable no-magic-numbers */
       const warnings = result.warnings()
       t.is(warnings.length, 7)
       t.is(warnings[0].text, `Unable to find uri in '@import foo-bar'`)

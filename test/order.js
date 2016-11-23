@@ -8,8 +8,8 @@ test(`should order nested imports correctly`, (t) => {
   return compareFixtures(t, "order", {
     path: "test/fixtures/imports",
     resolve: (id) =>
-       new Promise((res) => {
-         var doResolve = () => res(path.resolve("test/fixtures/imports", id))
+       new Promise((resolve, reject) => {
+         var doResolve = () => resolve(path.resolve("test/fixtures/imports", id))
 
          if (first) {
           // Delay the first import so the second gets loaded first
