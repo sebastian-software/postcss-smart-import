@@ -7,10 +7,12 @@
     "postcss",
     "postcss-plugin",
     "import",
-    "npm"
+    "sugarss"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=4.0.0",
+    "npm": ">=4.0.0",
+    "yarn": ">=0.17.0"
   },
   "author": "Sebastian Werner",
   "license": "MIT",
@@ -56,7 +58,6 @@
     "s15e-javascript": "^0.7.6"
   },
   "scripts": {
-    "nsp": "nsp check --output summary",
     "release": "release-it --github.release --npm.publish --non-interactive",
     "release:minor": "release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major",
