@@ -14,9 +14,11 @@
   },
   "author": "Sebastian Werner",
   "license": "MIT",
-  "main": "lib/index.js",
-  "module": "lib/index.es.js",
-  "jsnext:main": "lib/index.es.js",
+  "main": "lib/index.classic.commonjs.js",
+  "module": "lib/index.classic.esmodule.js",
+  "jsnext:main": "lib/index.classic.esmodule.js",
+  "main:modern": "lib/index.modern.commonjs.js",
+  "module:modern": "lib/index.modern.esmodule.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sebastian-software/postcss-smart-import.git"
