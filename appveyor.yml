@@ -19,14 +19,11 @@ deploy: off
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - npm -g install npm@latest
-  - node --version
-  - npm --version
-  - yarn || npm prune && npm install
+  - yarn install
 
 test_script:
   - npm test
 
 cache:
   - node_modules
-  - "%LOCALAPPDATA%/Yarn"
+  - "%LOCALAPPDATA%\\Yarn"
