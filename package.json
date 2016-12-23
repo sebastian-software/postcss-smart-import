@@ -52,7 +52,7 @@
     "babel-register": "^6.18.0",
     "espower": "^2.0.1",
     "fs-extra": "^1.0.0",
-    "prepublish-lib": "^0.11.1",
+    "prepublish": "^0.12.0",
     "rimraf": "^2.5.4",
     "s15e-javascript": "^0.7.10"
   },
@@ -61,6 +61,6 @@
     "release:minor": "release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major",
     "test": "ava",
-    "prepublish": "rimraf lib && prepublish-lib"
+    "prepublish": "rimraf lib && prepublish"
   }
 }
