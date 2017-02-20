@@ -1,6 +1,6 @@
 {
   "name": "postcss-smart-import",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "PostCSS plugin to import CSS/SugarSS files",
   "keywords": [
     "css",
