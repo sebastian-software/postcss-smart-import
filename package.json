@@ -50,9 +50,9 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
     "babel-register": "^6.23.0",
-    "espower": "^2.0.2",
+    "espower": "^2.0.3",
     "fs-extra": "^2.0.0",
-    "prepublish": "^0.13.2",
+    "prepublish": "^0.13.3",
     "rimraf": "^2.6.0",
     "s15e-javascript": "^0.8.13"
   },
