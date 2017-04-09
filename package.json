@@ -32,7 +32,8 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "failWithoutAssertions": false
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
