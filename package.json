@@ -59,7 +59,7 @@
     "flow-bin": "^0.44.2",
     "fs-extra": "^2.1.2",
     "prepublish": "^0.15.4",
-    "readable-code": "^1.7.2",
+    "readable-code": "^2.0.0",
     "rimraf": "^2.6.1"
   },
   "scripts": {
