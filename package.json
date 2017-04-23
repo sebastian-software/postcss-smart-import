@@ -16,7 +16,11 @@
     "npm": ">=4.0.0",
     "yarn": ">=0.17.0"
   },
-  "author": "Sebastian Werner",
+  "author": {
+    "name": "Sebastian Software",
+    "email": "s.werner@sebastian-software.de",
+    "url": "sebastian-software.de"
+  },
   "license": "MIT",
   "main": "lib/index.classic.commonjs.js",
   "module": "lib/index.classic.esmodule.js",
