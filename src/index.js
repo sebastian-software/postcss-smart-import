@@ -111,7 +111,7 @@ function parseStyles(result, styles, options, state, media)
 
   return Promise.resolve(statements).then(promiseEach((stmt) => {
     // skip protocol base uri (protocol://url) or protocol-relative
-    if (stmt.type !== "import" || (/^(?:[a-z]+:)?\/\//i).test(stmt.uri))
+    if (stmt.type !== "import" || (!options.resolveUrls && (/^(?:[a-z]+:)?\/\//i).test(stmt.uri)))
       return null
     else
       return resolveImportId(result, stmt, options, state)
