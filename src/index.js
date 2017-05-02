@@ -161,7 +161,7 @@ function resolveImportId(result, stmt, options, state)
   var atRule = stmt.node
   var sourceFile = get(atRule, "source.input.file")
   var sourcePath = options.resolveUrls && URL_RE.test(sourceFile) ? sourceFile : path.dirname(sourceFile)
-  var base = sourceFile ? sourcePath) : options.root
+  var base = sourceFile ? sourcePath : options.root
 
   return Promise.resolve(options.resolve(stmt.uri, base, options))
     .then((resolved) => {
