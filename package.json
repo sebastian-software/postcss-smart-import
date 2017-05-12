@@ -56,7 +56,7 @@
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.1",
     "espower": "^2.0.3",
-    "flow-bin": "^0.45.0",
+    "flow-bin": "^0.46.0",
     "fs-extra": "^3.0.1",
     "prepublish": "^0.16.0",
     "readable-code": "^2.2.0",
