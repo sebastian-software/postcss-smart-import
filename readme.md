@@ -1,3 +1,8 @@
+**This project is not maintained anymore. Please use *postcss-import* instead**
+
+----
+
+
 <img src="assets/postcss.png" alt="PostCSS Logo" width="200" height="200"/>
 
 # PostCSS Smart Import <br/>[![Sponsored by][sponsor-img]][sponsor] [![Version][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][appveyor-img]][appveyor] [![Dependencies][deps-img]][deps]
@@ -117,25 +122,25 @@ Checkout [tests](test) for more examples.
 
 #### `root`
 
-Type: `String`  
+Type: `String`
 Default: `process.cwd()` or _dirname of
 [the postcss `from`](https://github.com/postcss/postcss#node-source)_
 
 Define the root where to resolve path (eg: place where `node_modules` are).
-Should not be used that much.  
+Should not be used that much.
 _Note: nested `@import` will additionally benefit of the relative dirname of
 imported files._
 
 #### `path`
 
-Type: `String|Array`  
+Type: `String|Array`
 Default: `[]`
 
 A string or an array of paths in where to look for files.
 
 #### `transform`
 
-Type: `Function`  
+Type: `Function`
 Default: `null`
 
 A function to transform the content of imported files. Take one argument (file
@@ -152,14 +157,14 @@ transform: function(css) {
 
 #### `plugins`
 
-Type: `Array`  
+Type: `Array`
 Default: `undefined`
 
 An array of plugins to be applied on each imported files.
 
 #### `onImport`
 
-Type: `Function`  
+Type: `Function`
 Default: `null`
 
 Function called after the import process. Take one argument (array of imported
@@ -167,7 +172,7 @@ files).
 
 #### `resolve`
 
-Type: `Function`  
+Type: `Function`
 Default: `null`
 
 You can overwrite the default path resolving way by setting this option.
@@ -177,7 +182,7 @@ You can use [resolve](https://github.com/substack/node-resolve) for that.
 
 #### `load`
 
-Type: `Function`  
+Type: `Function`
 Default: null
 
 You can overwrite the default loading way by setting this option.
@@ -186,7 +191,7 @@ promised content.
 
 #### `skipDuplicates`
 
-Type: `Boolean`  
+Type: `Boolean`
 Default: `true`
 
 By default, similar files (based on the same content) are being skipped.
@@ -196,7 +201,7 @@ disable it.
 
 #### `addDependencyTo`
 
-Type: `Object`  
+Type: `Object`
 Default: null
 
 An object with `addDependency()` method, taking file path as an argument.
