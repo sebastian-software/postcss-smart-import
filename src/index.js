@@ -8,6 +8,8 @@ import loadContent from "./load-content"
 import parseStatements from "./parse-statements"
 import promiseEach from "promise-each"
 
+var URL_RE = /^(?:[a-z]+:)?\/\//i
+
 function SmartImport(options)
 {
   options = assign({
@@ -111,7 +113,7 @@ function parseStyles(result, styles, options, state, media)
 
   return Promise.resolve(statements).then(promiseEach((stmt) => {
     // skip protocol base uri (protocol://url) or protocol-relative
-    if (stmt.type !== "import" || (/^(?:[a-z]+:)?\/\//i).test(stmt.uri))
+    if (stmt.type !== "import" || (!options.resolveUrls && URL_RE.test(stmt.uri)))
       return null
     else
       return resolveImportId(result, stmt, options, state)
@@ -158,7 +160,8 @@ function resolveImportId(result, stmt, options, state)
 {
   var atRule = stmt.node
   var sourceFile = get(atRule, "source.input.file")
-  var base = sourceFile ? path.dirname(sourceFile) : options.root
+  var sourcePath = options.resolveUrls && URL_RE.test(sourceFile) ? sourceFile : path.dirname(sourceFile)
+  var base = sourceFile ? sourcePath : options.root
 
   return Promise.resolve(options.resolve(stmt.uri, base, options))
     .then((resolved) => {
