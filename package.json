@@ -44,7 +44,7 @@
     "lodash": "^4.17.4",
     "object-assign": "^4.1.1",
     "postcss": "^6.0.6",
-    "postcss-sass": "^0.1.0",
+    "postcss-sass": "^0.2.0",
     "postcss-scss": "^1.0.2",
     "postcss-value-parser": "^3.3.0",
     "promise-each": "^2.2.0",
