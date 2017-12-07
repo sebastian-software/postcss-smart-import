@@ -64,6 +64,7 @@
     "fs-extra": "^3.0.1",
     "prepublish": "^0.20.0",
     "readable-code": "^3.3.2",
+    "release-it": "^5.0.0",
     "rimraf": "^2.6.1"
   },
   "scripts": {
